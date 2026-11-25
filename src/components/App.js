@@ -1,3 +1,4 @@
+import { useState } from "react";
 // Initial packing items
 const initialItems = [
   { id: 1, description: "Shirt", quantity: 5, packed: false },
@@ -9,6 +10,8 @@ function Logo() {
 }
 
 function Form() {
+  const [description, setDescription] = useState("");
+
   function handleSubmit(e) {
     e.preventDefault();
 }
@@ -21,7 +24,7 @@ function Form() {
         <option value={3}>3</option>
       </select>
 
-      <input type="text" placeholder="Item..." />
+      <input type="text" placeholder="Item..." value={description} onChange={(e) => setDescription(e.target.value)} />
 
       <button>Add</button>
     </form>
