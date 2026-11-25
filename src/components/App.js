@@ -2,7 +2,7 @@ import { useState } from "react";
 // Initial packing items
 const initialItems = [
   { id: 1, description: "Shirt", quantity: 5, packed: false },
-  { id: 2, description: "Pants", quantity: 2, packed: false },
+  { id: 2, description: "Pants", quantity: 2, packed: true },
 ];
 
 function Logo() {
@@ -37,7 +37,9 @@ function PackingList() {
   function Item({ propItem }) {
     return (
       <li>
-        <span>{propItem.quantity} {propItem.description}</span>
+        <span style={propItem.packed ? { textDecoration: "line-through" } : {}}>
+          {propItem.quantity} {propItem.description}
+        </span>
       </li>
     );
   }
