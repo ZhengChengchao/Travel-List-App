@@ -12,10 +12,30 @@ function Logo() {
 function Form() {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [items, setItems] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault();
-}
+
+    if (!description) return; // Prevent adding empty items
+
+    const newItem = {
+      id: Date.now(),
+      description: description,
+      quantity: quantity,
+      packed: false,
+    };
+
+    handleAddItems(newItem);
+
+    setDescription("");
+    setQuantity(1);
+  }
+
+  function handleAddItems(item) {
+  setItems((prevItems) => [...prevItems, item]);
+  }
+
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>What do you need to pack?</h3>
