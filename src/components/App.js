@@ -46,15 +46,6 @@ function Form({ onAddItems }) {
 }
 
 function PackingList({ itemsProp }) {
-  function Item({ propItem }) {
-    return (
-      <li>
-        <span style={propItem.packed ? { textDecoration: "line-through" } : {}}>
-          {propItem.quantity} {propItem.description}
-        </span>
-      </li>
-    );
-  }
   return (
     <div className="list">
       <ul>
@@ -63,6 +54,16 @@ function PackingList({ itemsProp }) {
         ))}
       </ul>
     </div>
+  );
+}
+
+function Item({ propItem }) {
+  return (
+    <li>
+      <span style={propItem.packed ? { textDecoration: "line-through" } : {}}>
+        {propItem.quantity} {propItem.description}
+      </span>
+    </li>
   );
 }
 
