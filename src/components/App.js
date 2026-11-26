@@ -1,18 +1,13 @@
 import { useState } from "react";
-// Initial packing items
-const initialItems = [
-  { id: 1, description: "Shirt", quantity: 5, packed: false },
-  { id: 2, description: "Pants", quantity: 2, packed: true },
-];
 
 function Logo() {
   return <h1>My Travel List</h1>;
 }
 
-function Form() {
+function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [items, setItems] = useState([]);
+
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,15 +21,12 @@ function Form() {
       packed: false,
     };
 
-    handleAddItems(newItem);
+    onAddItems(newItem);
 
     setDescription("");
     setQuantity(1);
   }
 
-  function handleAddItems(item) {
-  setItems((prevItems) => [...prevItems, item]);
-  }
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
@@ -53,7 +45,7 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ itemsProp }) {
   function Item({ propItem }) {
     return (
       <li>
@@ -66,7 +58,7 @@ function PackingList() {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => (
+        {itemsProp.map((item) => (
           <Item propItem={item} key={item.id}/>
         ))}
       </ul>
@@ -83,11 +75,17 @@ function Stats() {
 }
 
 function App() {
+  const [items, setItems] = useState([]);
+
+  function handleAddItems(item) {
+    setItems((prevItems) => [...prevItems, item]);
+  }
+
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItems={handleAddItems} />
+      <PackingList itemsProp={items} />
       <Stats />
     </div>
   );
