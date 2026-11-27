@@ -11,7 +11,7 @@ The application features a custom Retro Vacation theme inspired by vintage trave
 
 ## Live Demo
 
-[View My Travel List](YOUR_DEPLOYMENT_URL)
+[View My Travel List](my-travel-list-lime.vercel.app)
 
 ## Features
 
