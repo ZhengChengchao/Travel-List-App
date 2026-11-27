@@ -143,72 +143,17 @@ function PackingList({
         </span>
       </div>
 
-      <div className="search-bar">
-        <FaMagnifyingGlass />
-
-        <input
-          type="text"
-          placeholder="Search packing items..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        {search !== "" && (
-          <button
-            type="button"
-            className="clear-search"
-            onClick={() => setSearch("")}
-            aria-label="Clear search"
-            title="Clear search"
-          >
-            <FaXmark />
-          </button>
-        )}
-      </div>
-
-      <div className="filter-buttons">
-        <button
-          type="button"
-          className={filter === "all" ? "active-filter" : ""}
-          onClick={() => setFilter("all")}
-        >
-          All ({itemsProp.length})
-        </button>
-
-        <button
-          type="button"
-          className={filter === "unpacked" ? "active-filter" : ""}
-          onClick={() => setFilter("unpacked")}
-        >
-          Unpacked ({numUnpacked})
-        </button>
-
-        <button
-          type="button"
-          className={filter === "packed" ? "active-filter" : ""}
-          onClick={() => setFilter("packed")}
-        >
-          Packed ({numPacked})
-        </button>
-      </div>
-
-      <div className="sort-bar">
-        <FaArrowDownWideShort />
-
-        <label htmlFor="sort-by">Sort by:</label>
-
-        <select
-          id="sort-by"
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-        >
-          <option value="input">Input order</option>
-          <option value="name-asc">Name (A-Z)</option>
-          <option value="name-desc">Name (Z-A)</option>
-          <option value="quantity">Highest quantity</option>
-          <option value="packed">Unpacked first</option>
-        </select>
-      </div>
+      <PackingToolbar
+        search={search}
+        onSearchChange={setSearch}
+        filter={filter}
+        onFilterChange={setFilter}
+        sortBy={sortBy}
+        onSortChange={setSortBy}
+        numItems={itemsProp.length}
+        numPacked={numPacked}
+        numUnpacked={numUnpacked}
+      />
 
       {itemsProp.length === 0 ? (
         <div className="empty-list">
@@ -235,6 +180,92 @@ function PackingList({
         </ul>
       )}
     </section>
+  );
+}
+
+function PackingToolbar({
+  search,
+  onSearchChange,
+  filter,
+  onFilterChange,
+  sortBy,
+  onSortChange,
+  numItems,
+  numPacked,
+  numUnpacked,
+}) {
+  return (
+    <div className="packing-toolbar">
+      {/* Search bar */}
+      <div className="search-bar">
+        <FaMagnifyingGlass />
+
+        <input
+          type="text"
+          placeholder="Search packing items..."
+          value={search}
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
+
+        {search !== "" && (
+          <button
+            type="button"
+            className="clear-search"
+            onClick={() => onSearchChange("")}
+            aria-label="Clear search"
+            title="Clear search"
+          >
+            <FaXmark />
+          </button>
+        )}
+      </div>
+
+      {/* Filter buttons */}
+      <div className="filter-buttons">
+        <button
+          type="button"
+          className={filter === "all" ? "active-filter" : ""}
+          onClick={() => onFilterChange("all")}
+        >
+          All ({numItems})
+        </button>
+
+        <button
+          type="button"
+          className={filter === "unpacked" ? "active-filter" : ""}
+          onClick={() => onFilterChange("unpacked")}
+        >
+          Unpacked ({numUnpacked})
+        </button>
+
+        <button
+          type="button"
+          className={filter === "packed" ? "active-filter" : ""}
+          onClick={() => onFilterChange("packed")}
+        >
+          Packed ({numPacked})
+        </button>
+      </div>
+
+      {/* Sorting bar */}
+      <div className="sort-bar">
+        <FaArrowDownWideShort />
+
+        <label htmlFor="sort-by">Sort by:</label>
+
+        <select
+          id="sort-by"
+          value={sortBy}
+          onChange={(e) => onSortChange(e.target.value)}
+        >
+          <option value="input">Input order</option>
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="quantity">Highest quantity</option>
+          <option value="packed">Unpacked first</option>
+        </select>
+      </div>
+    </div>
   );
 }
 
