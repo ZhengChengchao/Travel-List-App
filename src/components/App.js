@@ -81,12 +81,29 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ itemsProp, onToggleItem, onDeleteItem }) {
-  const [search, setSearch] = useState("");
 
+function PackingList({ itemsProp, numPacked, onToggleItem, onDeleteItem }) {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("all");
+
+  // Search items by description
   const searchedItems = itemsProp.filter((item) =>
     item.description.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Filter searched items by packed status
+  const filteredItems = searchedItems.filter((item) => {
+    if (filter === "packed") {
+      return item.packed === true;
+    } else if (filter === "unpacked") {
+      return item.packed === false;
+    } else {
+      return true;
+    }
+  });
+
+  // Calculate filter counts
+  const numUnpacked = itemsProp.length - numPacked;
 
   return (
     <section className="list">
@@ -97,7 +114,7 @@ function PackingList({ itemsProp, onToggleItem, onDeleteItem }) {
         </h2>
 
         <span className="item-count">
-          {searchedItems.length} of {itemsProp.length} items
+          {filteredItems.length} of {itemsProp.length} items
         </span>
       </div>
 
@@ -124,21 +141,47 @@ function PackingList({ itemsProp, onToggleItem, onDeleteItem }) {
         )}
       </div>
 
+      <div className="filter-buttons">
+        <button
+          type="button"
+          className={filter === "all" ? "active-filter" : ""}
+          onClick={() => setFilter("all")}
+        >
+          All ({itemsProp.length})
+        </button>
+
+        <button
+          type="button"
+          className={filter === "unpacked" ? "active-filter" : ""}
+          onClick={() => setFilter("unpacked")}
+        >
+          Unpacked ({numUnpacked})
+        </button>
+
+        <button
+          type="button"
+          className={filter === "packed" ? "active-filter" : ""}
+          onClick={() => setFilter("packed")}
+        >
+          Packed ({numPacked})
+        </button>
+      </div>
+
       {itemsProp.length === 0 ? (
         <div className="empty-list">
           <FaSuitcaseRolling />
           <h3>Your suitcase is empty.</h3>
           <p>Add your first item to get started.</p>
         </div>
-      ) : searchedItems.length === 0 ? (
+      ) : filteredItems.length === 0 ? (
         <div className="empty-list">
           <FaMagnifyingGlass />
           <h3>No matching items.</h3>
-          <p>Try searching for a different item.</p>
+          <p>Try changing your search or filter.</p>
         </div>
       ) : (
         <ul>
-          {searchedItems.map((item) => (
+          {filteredItems.map((item) => (
             <Item
               propItem={item}
               key={item.id}
@@ -208,12 +251,8 @@ function Item({ propItem, onToggleItem, onDeleteItem }) {
   );
 }
 
-function Stats({ itemsProp }) {
+function Stats({ itemsProp, numPacked }) {
   const numItems = itemsProp.length;
-
-  const numPacked = itemsProp.filter(
-    (item) => item.packed
-  ).length;
 
   const percentage =
     numItems === 0
@@ -262,6 +301,8 @@ function Stats({ itemsProp }) {
 function App() {
   const [items, setItems] = useState([]);
 
+  const numPacked = items.filter((item) => item.packed).length;
+
   function handleAddItems(item) {
     setItems((prevItems) => [...prevItems, item]);
   }
@@ -291,12 +332,16 @@ function App() {
 
         <PackingList
           itemsProp={items}
+          numPacked={numPacked}
           onToggleItem={handleToggleItem}
           onDeleteItem={handleDeleteItem}
         />
       </main>
 
-      <Stats itemsProp={items} />
+      <Stats 
+      itemsProp={items}
+      numPacked={numPacked} 
+      />
     </div>
   );
 }

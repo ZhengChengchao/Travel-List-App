@@ -590,3 +590,39 @@ input[type="checkbox"] {
 .clear-search:hover {
   background-color: #f5dfd8;
 }
+
+/* =========================
+   11. Filter buttons
+   ========================= */
+
+.filter-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  background-color: #fffaf0;
+  color: #793c36;
+
+  border: 1px solid #ddc8aa;
+  border-radius: 20px;
+
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 700;
+
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-buttons button:hover {
+  background-color: #f0dfc3;
+}
+
+.filter-buttons button.active-filter {
+  background-color: #793c36;
+  color: #fffaf0;
+  border-color: #793c36;
+}
