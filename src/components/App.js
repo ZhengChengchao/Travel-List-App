@@ -27,9 +27,15 @@ function Logo() {
   );
 }
 
+
 function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+
+  const quantities = Array.from(
+    { length: 20 },
+    (_, i) => i + 1 // use _ as a naming convention to indicate that the parameter is intentionally unused.
+  );
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -63,11 +69,15 @@ function Form({ onAddItems }) {
           <select
             id="quantity"
             value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
+            onChange={(e) =>
+              setQuantity(Number(e.target.value))
+            }
           >
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
+            {quantities.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
           </select>
         </div>
 
