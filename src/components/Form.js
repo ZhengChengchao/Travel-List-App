@@ -13,23 +13,23 @@ function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+	function handleSubmit(e) {
+		e.preventDefault();
 
-    if (!description) return; // Prevent adding empty items
+		if (!description.trim()) return; // Prevent empty or whitespace-only items
 
-    const newItem = {
-      id: Date.now(),
-      description: description,
-      quantity: quantity,
-      packed: false,
-    };
+		const newItem = {
+			id: Date.now(),
+			description: description.trim(),
+			quantity: quantity,
+			packed: false,
+		};
 
-    onAddItems(newItem);
+		onAddItems(newItem);
 
-    setDescription("");
-    setQuantity(1);
-  }
+		setDescription("");
+		setQuantity(1);
+	}
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
