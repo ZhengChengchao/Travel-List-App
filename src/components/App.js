@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {FaPlaneDeparture, FaSuitcaseRolling, FaPlus, FaListCheck, FaTrashCan, FaCircleCheck, FaRegCircle} from "react-icons/fa6";
+import {FaPlaneDeparture, FaSuitcaseRolling, FaPlus, FaListCheck, FaTrashCan, FaCircleCheck, FaRegCircle, FaMagnifyingGlass, FaXmark} from "react-icons/fa6";
 
 function Logo() {
   return (
@@ -82,6 +82,12 @@ function Form({ onAddItems }) {
 }
 
 function PackingList({ itemsProp, onToggleItem, onDeleteItem }) {
+  const [search, setSearch] = useState("");
+
+  const searchedItems = itemsProp.filter((item) =>
+    item.description.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <section className="list">
       <div className="list-heading">
@@ -91,8 +97,31 @@ function PackingList({ itemsProp, onToggleItem, onDeleteItem }) {
         </h2>
 
         <span className="item-count">
-          {itemsProp.length} items
+          {searchedItems.length} of {itemsProp.length} items
         </span>
+      </div>
+
+      <div className="search-bar">
+        <FaMagnifyingGlass />
+
+        <input
+          type="text"
+          placeholder="Search packing items..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        {search !== "" && (
+          <button
+            type="button"
+            className="clear-search"
+            onClick={() => setSearch("")}
+            aria-label="Clear search"
+            title="Clear search"
+          >
+            <FaXmark />
+          </button>
+        )}
       </div>
 
       {itemsProp.length === 0 ? (
@@ -101,9 +130,15 @@ function PackingList({ itemsProp, onToggleItem, onDeleteItem }) {
           <h3>Your suitcase is empty.</h3>
           <p>Add your first item to get started.</p>
         </div>
+      ) : searchedItems.length === 0 ? (
+        <div className="empty-list">
+          <FaMagnifyingGlass />
+          <h3>No matching items.</h3>
+          <p>Try searching for a different item.</p>
+        </div>
       ) : (
         <ul>
-          {itemsProp.map((item) => (
+          {searchedItems.map((item) => (
             <Item
               propItem={item}
               key={item.id}
@@ -116,6 +151,7 @@ function PackingList({ itemsProp, onToggleItem, onDeleteItem }) {
     </section>
   );
 }
+
 
 function Item({ propItem, onToggleItem, onDeleteItem }) {
   return (

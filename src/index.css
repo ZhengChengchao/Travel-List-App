@@ -525,3 +525,68 @@ input[type="checkbox"] {
     letter-spacing: 1px;
   }
 }
+
+/* =========================
+   10. Search bar
+   ========================= */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background-color: #fffaf0;
+  border: 1px solid #ddc8aa;
+  border-radius: 10px;
+
+  padding: 0 16px;
+  margin-bottom: 18px;
+  min-height: 48px;
+}
+
+.search-bar > svg {
+  font-size: 17px;
+  color: #a64b45;
+  flex-shrink: 0;
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 0;
+
+  background-color: transparent;
+  border: none;
+  color: #793c36;
+  padding: 12px 0;
+}
+
+.search-bar input::placeholder {
+  color: #9f8270;
+}
+
+.search-bar input:focus {
+  outline: none;
+}
+
+.search-bar:focus-within {
+  outline: 2px solid #a64b45;
+  outline-offset: 1px;
+}
+
+.clear-search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #a64b45;
+}
+
+.clear-search:hover {
+  background-color: #f5dfd8;
+}
