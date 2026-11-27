@@ -1,70 +1,189 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# My Travel List
 
-## Available Scripts
+## Project Overview
 
-In the project directory, you can run:
+My Travel List is a React-based travel packing list application developed for the C304 Cloud Application Development module at Republic Polytechnic.
 
-### `npm start`
+The application helps users organise their travel essentials by allowing them to add items, select quantities, mark items as packed, and track their overall packing progress.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The application features a custom Retro Vacation theme inspired by vintage travel designs, using warm colours, the Monoton font, and Font Awesome 6 icons.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Live Demo
 
-### `npm test`
+[View My Travel List](YOUR_DEPLOYMENT_URL)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+### Core Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Add packing items with a description and quantity.
+- Display packing items in a responsive card layout.
+- Mark items as packed or unpacked using checkboxes.
+- Delete individual packing items.
+- Calculate and display packing completion statistics.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Extended Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Case-insensitive search by item description.
+- Filter items by All, Packed, and Unpacked status.
+- Dynamic item counts for each filter.
+- Sort items using five different options:
+  - Input order
+  - Name (A-Z)
+  - Name (Z-A)
+  - Highest quantity
+  - Unpacked first
+- Clear all packing items with confirmation.
+- Reset search, filter, and sorting options.
+- Select quantities from 1 to 20.
+- Dynamic packing progress bar.
+- Completion message when all items are packed.
+- Empty-list and no-result messages.
+- Responsive desktop and mobile layouts.
 
-### `npm run eject`
+## Screenshots
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Empty Packing List
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Empty Packing List](screenshots/01-home.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Packing List
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![Packing List](screenshots/02-packing-list.png)
 
-## Learn More
+### Search and Filter
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Search and Filter](screenshots/03-search-filter.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Completed Packing List
 
-### Code Splitting
+![Completed Packing List](screenshots/04-completed.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Mobile Layout
 
-### Analyzing the Bundle Size
+![Mobile Layout](screenshots/05-mobile.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Technologies Used
 
-### Making a Progressive Web App
+- React
+- JavaScript
+- HTML5
+- CSS3
+- React Icons (Font Awesome 6)
+- Google Fonts (Monoton and Quicksand)
+- Node.js and npm
+- Git and GitHub
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## React Concepts Applied
 
-### Advanced Configuration
+- Function components
+- JSX
+- Props
+- Callback functions
+- Event handling
+- Conditional rendering
+- Controlled components
+- State management using useState
+- Lifting state up
+- Derived values
+- Array rendering using map()
+- Array filtering using filter()
+- Component modularisation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Component Structure
 
-### Deployment
+    App
+    ├── Logo
+    ├── Form
+    ├── PackingList
+    │   ├── PackingToolbar
+    │   └── Item (multiple instances)
+    └── Stats
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Component Responsibilities
 
-### `npm run build` fails to minify
+| Component | Responsibility |
+|---|---|
+| App | Manages the shared packing list state and item handler functions. |
+| Logo | Displays the application title and branding. |
+| Form | Handles item descriptions, quantities, and form submission. |
+| PackingList | Manages search, filter, and sorting logic and renders packing items. |
+| PackingToolbar | Displays search, filter, sorting, reset, and clear-all controls. |
+| Item | Displays individual packing items and handles toggle and delete interactions. |
+| Stats | Displays packing statistics and completion progress. |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Project Structure
+
+    src/
+    ├── components/
+    │   ├── App.js
+    │   ├── Logo.js
+    │   ├── Form.js
+    │   ├── PackingList.js
+    │   ├── PackingToolbar.js
+    │   ├── Item.js
+    │   └── Stats.js
+    ├── index.js
+    └── index.css
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+- Git
+
+### Installation
+
+1. Clone the repository.
+
+       git clone https://github.com/ZhengChengchao/Travel-List-App.git
+
+2. Navigate to the project directory.
+
+       cd Travel-List-App
+
+3. Install the required dependencies.
+
+       npm install
+
+4. Start the development server.
+
+       npm start
+
+5. Open http://localhost:3000 in your browser.
+
+## Production Build
+
+To generate an optimised production build:
+
+    npm run build
+
+The production files will be generated in the build folder.
+
+## Current Limitations
+
+- Packing statistics are calculated based on list entries rather than individual physical quantities.
+- Packing items are stored in React state and are reset when the page is refreshed.
+- The application does not currently use a backend or database.
+
+## Acknowledgements
+
+This project was developed based on the C304 Lessons 11 and 12 Travel List App practical activities.
+
+Starter repository:
+https://github.com/andytaotest/travel-list-app-starter
+
+The original starter application was extended with custom styling, additional features, and modular components.
+
+## Author
+
+Zheng Chengchao
+
+Diploma in Information Technology (Full Stack Development)
+
+Republic Polytechnic
+
+C304 Cloud Application Development
