@@ -626,3 +626,62 @@ input[type="checkbox"] {
   color: #fffaf0;
   border-color: #793c36;
 }
+
+/* =========================
+   12. Sorting bar
+   ========================= */
+
+.sort-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background-color: #fffaf0;
+  border: 1px solid #ddc8aa;
+  border-radius: 10px;
+
+  padding: 12px 16px;
+  margin-bottom: 20px;
+}
+
+.sort-bar svg {
+  font-size: 18px;
+  color: #a64b45;
+  flex-shrink: 0;
+}
+
+.sort-bar label {
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sort-bar select {
+  background-color: #fffdf8;
+  color: #793c36;
+
+  border: 1px solid #ddc8aa;
+  border-radius: 8px;
+
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.sort-bar select:hover {
+  border-color: #a64b45;
+}
+
+@media (max-width: 600px) {
+  .sort-bar {
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .sort-bar select {
+    flex: 1;
+    min-width: 0;
+  }
+}

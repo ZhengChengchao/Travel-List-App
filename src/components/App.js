@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {FaPlaneDeparture, FaSuitcaseRolling, FaPlus, FaListCheck, FaTrashCan, FaCircleCheck, FaRegCircle, FaMagnifyingGlass, FaXmark} from "react-icons/fa6";
+import {FaPlaneDeparture, FaSuitcaseRolling, FaPlus, FaListCheck, FaTrashCan, FaCircleCheck, FaRegCircle, FaMagnifyingGlass, FaXmark, FaArrowDownWideShort} from "react-icons/fa6";
 
 function Logo() {
   return (
@@ -81,10 +81,15 @@ function Form({ onAddItems }) {
   );
 }
 
-
-function PackingList({ itemsProp, numPacked, onToggleItem, onDeleteItem }) {
+function PackingList({
+  itemsProp,
+  numPacked,
+  onToggleItem,
+  onDeleteItem,
+}) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("input");
 
   // Search items by description
   const searchedItems = itemsProp.filter((item) =>
@@ -102,7 +107,27 @@ function PackingList({ itemsProp, numPacked, onToggleItem, onDeleteItem }) {
     }
   });
 
-  // Calculate filter counts
+  // Create a copy before sorting
+  const sortedItems = [...filteredItems];
+
+  // Sort filtered items
+  if (sortBy === "name-asc") {
+    sortedItems.sort((a, b) =>
+      a.description.localeCompare(b.description)
+    );
+  } else if (sortBy === "name-desc") {
+    sortedItems.sort((a, b) =>
+      b.description.localeCompare(a.description)
+    );
+  } else if (sortBy === "quantity") {
+    sortedItems.sort((a, b) => b.quantity - a.quantity);
+  } else if (sortBy === "packed") {
+    sortedItems.sort((a, b) =>
+      Number(a.packed) - Number(b.packed)
+    );
+  }
+
+  // Calculate unpacked items
   const numUnpacked = itemsProp.length - numPacked;
 
   return (
@@ -114,7 +139,7 @@ function PackingList({ itemsProp, numPacked, onToggleItem, onDeleteItem }) {
         </h2>
 
         <span className="item-count">
-          {filteredItems.length} of {itemsProp.length} items
+          {sortedItems.length} of {itemsProp.length} items
         </span>
       </div>
 
@@ -167,13 +192,31 @@ function PackingList({ itemsProp, numPacked, onToggleItem, onDeleteItem }) {
         </button>
       </div>
 
+      <div className="sort-bar">
+        <FaArrowDownWideShort />
+
+        <label htmlFor="sort-by">Sort by:</label>
+
+        <select
+          id="sort-by"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="input">Input order</option>
+          <option value="name-asc">Name (A-Z)</option>
+          <option value="name-desc">Name (Z-A)</option>
+          <option value="quantity">Highest quantity</option>
+          <option value="packed">Unpacked first</option>
+        </select>
+      </div>
+
       {itemsProp.length === 0 ? (
         <div className="empty-list">
           <FaSuitcaseRolling />
           <h3>Your suitcase is empty.</h3>
           <p>Add your first item to get started.</p>
         </div>
-      ) : filteredItems.length === 0 ? (
+      ) : sortedItems.length === 0 ? (
         <div className="empty-list">
           <FaMagnifyingGlass />
           <h3>No matching items.</h3>
@@ -181,7 +224,7 @@ function PackingList({ itemsProp, numPacked, onToggleItem, onDeleteItem }) {
         </div>
       ) : (
         <ul>
-          {filteredItems.map((item) => (
+          {sortedItems.map((item) => (
             <Item
               propItem={item}
               key={item.id}
@@ -194,7 +237,6 @@ function PackingList({ itemsProp, numPacked, onToggleItem, onDeleteItem }) {
     </section>
   );
 }
-
 
 function Item({ propItem, onToggleItem, onDeleteItem }) {
   return (
