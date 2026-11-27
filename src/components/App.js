@@ -1,5 +1,16 @@
 import { useState } from "react";
-import {FaPlaneDeparture, FaSuitcaseRolling, FaPlus, FaListCheck, FaTrashCan, FaCircleCheck, FaRegCircle, FaMagnifyingGlass, FaXmark, FaArrowDownWideShort} from "react-icons/fa6";
+import {
+  FaPlaneDeparture, 
+  FaSuitcaseRolling, 
+  FaPlus, FaListCheck, 
+  FaTrashCan, 
+  FaCircleCheck, 
+  FaRegCircle, 
+  FaMagnifyingGlass, 
+  FaXmark, 
+  FaArrowDownWideShort,
+  FaRotateLeft,
+} from "react-icons/fa6";
 
 function Logo() {
   return (
@@ -86,6 +97,7 @@ function PackingList({
   numPacked,
   onToggleItem,
   onDeleteItem,
+  onClearItems,
 }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -153,6 +165,7 @@ function PackingList({
         numItems={itemsProp.length}
         numPacked={numPacked}
         numUnpacked={numUnpacked}
+        onClearItems={onClearItems}
       />
 
       {itemsProp.length === 0 ? (
@@ -193,7 +206,29 @@ function PackingToolbar({
   numItems,
   numPacked,
   numUnpacked,
+  onClearItems,
 }) {
+  const isDefaultView =
+    search === "" &&
+    filter === "all" &&
+    sortBy === "input";
+
+  function handleResetView() {
+    onSearchChange("");
+    onFilterChange("all");
+    onSortChange("input");
+  }
+
+  function handleClearClick() {
+    const confirmed = window.confirm(
+      "Are you sure you want to clear all packing items?"
+    );
+
+    if (confirmed) {
+      onClearItems();
+      handleResetView();
+    }
+  }
   return (
     <div className="packing-toolbar">
       {/* Search bar */}
@@ -264,6 +299,28 @@ function PackingToolbar({
           <option value="quantity">Highest quantity</option>
           <option value="packed">Unpacked first</option>
         </select>
+
+        <div className="toolbar-actions">
+          <button
+            type="button"
+            className="reset-view-button"
+            onClick={handleResetView}
+            disabled={isDefaultView}
+          >
+            <FaRotateLeft />
+            Reset view
+          </button>
+
+          <button
+            type="button"
+            className="clear-all-button"
+            onClick={handleClearClick}
+            disabled={numItems === 0}
+          >
+            <FaTrashCan />
+            Clear all items
+          </button>
+        </div> 
       </div>
     </div>
   );
@@ -395,6 +452,10 @@ function App() {
       prevItems.filter((item) => item.id !== id)
     );
   }
+  
+  function handleClearItems() {
+    setItems([]);
+  }
 
   return (
     <div className="app">
@@ -408,6 +469,7 @@ function App() {
           numPacked={numPacked}
           onToggleItem={handleToggleItem}
           onDeleteItem={handleDeleteItem}
+          onClearItems={handleClearItems}
         />
       </main>
 

@@ -685,3 +685,129 @@ input[type="checkbox"] {
     min-width: 0;
   }
 }
+
+/* =========================
+   13. Clear all button
+   ========================= */
+
+.clear-all-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-left: auto;
+  padding: 9px 16px;
+
+  background-color: #f5dfd8;
+  color: #a64b45;
+
+  border: 1px solid #e3b9af;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.clear-all-button:hover:not(:disabled) {
+  background-color: #a64b45;
+  color: #fffaf0;
+  border-color: #a64b45;
+}
+
+.sort-bar .clear-all-button svg {
+  color: inherit;
+  font-size: 14px;
+}
+
+.clear-all-button:disabled {
+  background-color: #eee7dc;
+  color: #b9aaa0;
+  border-color: #ddd3c5;
+  cursor: not-allowed;
+}
+
+/* Responsive clear all button */
+
+@media (max-width: 600px) {
+  .sort-bar {
+    flex-wrap: wrap;
+  }
+
+  .clear-all-button {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* =========================
+   14. Reset view button
+   ========================= */
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.reset-view-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 9px 16px;
+
+  background-color: #f0dfc3;
+  color: #793c36;
+
+  border: 1px solid #ddc8aa;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.reset-view-button:hover:not(:disabled) {
+  background-color: #793c36;
+  color: #fffaf0;
+}
+
+.reset-view-button:disabled {
+  background-color: #eee7dc;
+  color: #b9aaa0;
+  border-color: #ddd3c5;
+  cursor: not-allowed;
+}
+
+.sort-bar .reset-view-button svg {
+  color: inherit;
+  font-size: 14px;
+}
+
+.toolbar-actions .clear-all-button {
+  margin-left: 0;
+}
+
+@media (max-width: 800px) {
+  .sort-bar {
+    flex-wrap: wrap;
+  }
+
+  .toolbar-actions {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .toolbar-actions button {
+    flex: 1;
+    width: auto;
+  }
+}
